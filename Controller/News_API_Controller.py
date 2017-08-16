@@ -1,5 +1,5 @@
 import requests
-import json
+
 
 def getAllSources():
     return 'https://newsapi.org/v1/sources?apiKey=e1c234eb02844c84a10860a43701cce8'
