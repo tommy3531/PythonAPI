@@ -23,16 +23,23 @@ def listSourcesJson():
         newsList.append(NewsData(description, name, id))
 
     return newsList
-def getNewsList():
-    return newsList
 
-def printOut():
-    classList = listSourcesJson()
-    for obj in classList:
+def getNewsList():
+    for obj in newsList:
         print("\nThis is the id: " + obj._id)
         print("\nThis is the name: " + obj._name)
         print("\nThis is the description: " + obj._description)
 
+    return newsList
+
+def printOut():
+    classList = listSourcesJson()
+    # for obj in classList:
+    #     print("\nThis is the id: " + obj._id)
+    #     print("\nThis is the name: " + obj._name)
+    #     print("\nThis is the description: " + obj._description)
+
 if __name__ == "__main__":
     printOut()
+    getNewsList()
 
