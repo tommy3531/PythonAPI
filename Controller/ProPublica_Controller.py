@@ -19,7 +19,6 @@ class ProPublica(object):
             'x-api-key': self._key
         }
         response = requests.request("GET", url, headers=headers)
-
         if response.status_code != 200:
             print('Something went wrong'.format(response.status_code))
         else:
@@ -32,7 +31,6 @@ class ProPublica(object):
             'x-api-key': self._key
         }
         response = requests.request("GET", url, headers=headers)
-
         if response.status_code != 200:
             print('Something went wrong'.format(response.status_code))
         else:
@@ -57,7 +55,6 @@ class ProPublica(object):
         headers = {
             'x-api-key': self._key
         }
-
         response = requests.request("GET", url, headers=headers)
         if response.status_code != 200:
             print('Something went wrong'.format(response.status_code))
