@@ -115,5 +115,5 @@ if __name__ == "__main__":
     #billDetails = api.getBillDetails()
     print("This is from the ProPublica Controller: ")
     parsedSenatorJson = api.parseSenator(senator)
-    j = api.printSenator(parsedSenatorJson)
-    pprint.pprint(j)
+    api.printSenator(parsedSenatorJson)
+   # pprint.pprint(j)
