@@ -94,19 +94,24 @@ class ProPublica(object):
             middle_name = item.get("middle_name", "No Middle Name")
             last_name = item.get("last_name", "No Last Name")
             name = item.get("name", "No Name")
+            party = item.get("party", "No Party")
+            role = item.get("role", "No Role")
+            twitter_id = item.get("twitter_id", "No Twitter ID")
             faceBook = item.get("facebook_account", "No Facebook Available")
-
-            sentatorList.append(Senator(first_name, middle_name, last_name, name, faceBook))
+            sentatorList.append(Senator(first_name, middle_name, last_name, name, party, role, faceBook, twitter_id))
         return sentatorList
 
     def printSenator(self, senatorJson):
         print("Printing the Senator Class Attributes stored in senatorList: \n")
         for item in senatorJson:
             print("First Name  : " + item._firstName)
-            print(item._middleName)
+            print("Middle Name : " + str(item._middleName))
             print("Last Name   : " + item._lastName)
             print("Name        : " + item._name)
-            print("Facebook    : " + item._facebook+"\n")
+            print("Party       : " + item._party)
+            print("Role        : " + item._role)
+            print("Facebook    : " + item._facebook)
+            print("TwitterID   : " + item._twitterID + "\n")
 
 
     def parseHouse(self):
