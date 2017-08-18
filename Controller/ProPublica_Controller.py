@@ -90,13 +90,23 @@ class ProPublica(object):
         """ Need to create a senator Class to create a senator OBJ """
         sentatorList = []
         for item in senatorJsonData['results']:
+            first_name = item.get("first_name", "No First Name")
+            middle_name = item.get("middle_name", "No Middle Name")
+            last_name = item.get("last_name", "No Last Name")
+            name = item.get("name", "No Name")
             faceBook = item.get("facebook_account", "No Facebook Available")
-            sentatorList.append(Senator(faceBook))
+
+            sentatorList.append(Senator(first_name, middle_name, last_name, name, faceBook))
         return sentatorList
 
     def printSenator(self, senatorJson):
+        print("Printing the Senator Class Attributes stored in senatorList: \n")
         for item in senatorJson:
-            print(item)
+            print("First Name  : " + item._firstName)
+            print(item._middleName)
+            print("Last Name   : " + item._lastName)
+            print("Name        : " + item._name)
+            print("Facebook    : " + item._facebook+"\n")
 
 
     def parseHouse(self):
@@ -114,6 +124,7 @@ if __name__ == "__main__":
    # details = api.getRepDetails()
     #billDetails = api.getBillDetails()
     print("This is from the ProPublica Controller: ")
+    # Returns a senator obj
     parsedSenatorJson = api.parseSenator(senator)
+    # Print out the senator obj attributes
     api.printSenator(parsedSenatorJson)
-   # pprint.pprint(j)
