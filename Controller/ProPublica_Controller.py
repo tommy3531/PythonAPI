@@ -1,4 +1,8 @@
+from Controller.UserInput_Controller import Input
+from Controller.Senator_Controller import Senator
 import requests
+import pprint
+
 
 # https://api.propublica.org/congress/v1/members/senate/RI/api-key=FuMVFXTU3fJHtKTHC9v480ZXmampcvt6J0vzYBji/current.json
 # https://api.propublica.org/congress/v1/members/senate/MO/api-key=FuMVFXTU3fJHtKTHC9v480ZXmampcvt6J0vzYBji/current.json
@@ -11,6 +15,7 @@ class ProPublica(object):
         self._houseBaseURL = "https://api.propublica.org/congress/v1/members/house"
         self._specificMemberURL = "https://api.propublica.org/congress/v1/members"
         self._specificBillURL = "https://api.propublica.org/congress/v1"
+        self._input = Input()
 
     def listSentatorByState(self, state):
 
@@ -60,3 +65,55 @@ class ProPublica(object):
             print('Something went wrong'.format(response.status_code))
         else:
             return response.json()
+
+    def getListOfStateSenator(self):
+        state = self._input.setState()
+        jsonOfStateSentator = self.listSentatorByState(state)
+        return jsonOfStateSentator
+
+    def getListOfStateHouseReps(self):
+        state = self._input.setState()
+        jsonOfHouseReps = self.listHouseOfRepsByState(state)
+        return jsonOfHouseReps
+
+    def getRepDetails(self):
+        repID = self._input.setRepID()
+        jsonOfRepDetails = self.repDetails(repID)
+        return jsonOfRepDetails
+
+    def getBillDetails(self):
+        jsonOfBillDetails = self.billDetails('115', 'hr2810')
+        return jsonOfBillDetails
+
+    def parseSenator(self, senatorJsonData):
+
+        """ Need to create a senator Class to create a senator OBJ """
+        sentatorList = []
+        for item in senatorJsonData['results']:
+            faceBook = item.get("facebook_account", "No Facebook Available")
+            sentatorList.append(Senator(faceBook))
+        return sentatorList
+
+    def printSenator(self, senatorJson):
+        for item in senatorJson:
+            print(item)
+
+
+    def parseHouse(self):
+        pass
+
+    def parseRepDetails(self):
+        pass
+
+
+if __name__ == "__main__":
+    api = ProPublica()
+    # C001049
+    senator = api.getListOfStateSenator()
+   # house = api.getListOfStateHouseReps()
+   # details = api.getRepDetails()
+    #billDetails = api.getBillDetails()
+    print("This is from the ProPublica Controller: ")
+    parsedSenatorJson = api.parseSenator(senator)
+    j = api.printSenator(parsedSenatorJson)
+    pprint.pprint(j)

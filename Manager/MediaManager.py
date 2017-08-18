@@ -1,9 +1,5 @@
-import json
-import pprint
 from Controller.News_API_Controller import listSources
 from Model.Media.News_Model import NewsData
-from Controller.News_API_Controller import listSourceByCategory
-from Controller.News_API_Controller import listArticleFromSource
 
 newsList = []
 
@@ -39,7 +35,5 @@ def printOut():
     #     print("\nThis is the name: " + obj._name)
     #     print("\nThis is the description: " + obj._description)
 
-if __name__ == "__main__":
-    printOut()
-    getNewsList()
+
 
