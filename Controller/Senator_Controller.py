@@ -10,6 +10,7 @@ class Senator():
         self._facebook = facebook
         self._twitterID = twitterID
 
+
     # def __str__(self):
     #     return "First Name  : {} \n" \
     #            "Middle Name : {} \n" \

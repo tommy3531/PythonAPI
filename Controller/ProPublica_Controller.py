@@ -128,7 +128,7 @@ if __name__ == "__main__":
    # house = api.getListOfStateHouseReps()
    # details = api.getRepDetails()
     #billDetails = api.getBillDetails()
-    print("This is from the ProPublica Controller: ")
+    # print("This is from the ProPublica Controller: ")
     # Returns a senator obj
     parsedSenatorJson = api.parseSenator(senator)
     # Print out the senator obj attributes
