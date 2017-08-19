@@ -1,5 +1,6 @@
 from Controller.UserInput_Controller import Input
-from Controller.Senator_Controller import Senator
+from Model.ProPublica.ProPublica_Senator_Model import Senator
+from Model.ProPublica.ProPublica_House_Model import House
 import requests
 import pprint
 
@@ -87,7 +88,7 @@ class ProPublica(object):
 
     def parseSenator(self, senatorJsonData):
 
-        """ Need to create a senator Class to create a senator OBJ """
+        """ Create Senator Object and store senator obj in list """
         sentatorList = []
         for item in senatorJsonData['results']:
             first_name = item.get("first_name", "No First Name")
@@ -114,8 +115,33 @@ class ProPublica(object):
             print("TwitterID   : " + item._twitterID + "\n")
 
 
-    def parseHouse(self):
-        pass
+    def parseHouse(self, houseJsonData):
+
+        """ Create House Object and store house obj in list """
+        houseList = []
+        for item in houseJsonData['results']:
+            first_name = item.get("first_name", "No First Name")
+            middle_name = item.get("middle_name", "No Middle Name")
+            last_name = item.get("last_name", "No Last Name")
+            name = item.get("name", "No Name")
+            party = item.get("party", "No Party")
+            role = item.get("role", "No Role")
+            twitter_id = item.get("twitter_id", "No Twitter ID")
+            faceBook = item.get("facebook_account", "No Facebook Available")
+            houseList.append(House(first_name, middle_name, last_name, name, party, role, faceBook, twitter_id))
+        return houseList
+
+    def printHouse(self, houseJson):
+        print("Printing the House Class Attributes stored in senatorList: \n")
+        for item in houseJson:
+            print("First Name  : " + item._firstName)
+            print("Middle Name : " + str(item._middleName))
+            print("Last Name   : " + item._lastName)
+            print("Name        : " + item._name)
+            print("Party       : " + item._party)
+            print("Role        : " + item._role)
+            print("Facebook    : " + str(item._facebook))
+            print("TwitterID   : " + str(item._twitterID) + "\n")
 
     def parseRepDetails(self):
         pass
@@ -124,12 +150,13 @@ class ProPublica(object):
 if __name__ == "__main__":
     api = ProPublica()
     # C001049
-    senator = api.getListOfStateSenator()
-   # house = api.getListOfStateHouseReps()
-   # details = api.getRepDetails()
+    #senator = api.getListOfStateSenator()
+    house = api.getListOfStateHouseReps()
+    #parsedSenatorJson = api.parseSenator(senator)
+    #api.printSenator(parsedSenatorJson)
+    parsedHouseJson = api.parseHouse(house)
+    api.printHouse(parsedHouseJson)
+    #details = api.getRepDetails()
     #billDetails = api.getBillDetails()
-    # print("This is from the ProPublica Controller: ")
-    # Returns a senator obj
-    parsedSenatorJson = api.parseSenator(senator)
-    # Print out the senator obj attributes
-    api.printSenator(parsedSenatorJson)
+
+
