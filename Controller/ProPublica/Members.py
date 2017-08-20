@@ -1,28 +1,24 @@
-from Controller.UserInput_Controller import Input
-from Model.ProPublica.ProPublica_Senator_Model import Senator
-from Model.ProPublica.ProPublica_House_Model import House
 import requests
-import pprint
+
+from Controller.ProPublica.ProPublicaController import ProPublica
+from Controller.UserInput_Controller import Input
+from Model.ProPublica.ProPublica_House_Model import House
+from Model.ProPublica.ProPublica_Senator_Model import Senator
 
 
-# https://api.propublica.org/congress/v1/members/senate/RI/api-key=FuMVFXTU3fJHtKTHC9v480ZXmampcvt6J0vzYBji/current.json
-# https://api.propublica.org/congress/v1/members/senate/MO/api-key=FuMVFXTU3fJHtKTHC9v480ZXmampcvt6J0vzYBji/current.json
+class Members(object):
 
-class ProPublica(object):
-    
     def __init__(self):
-        self._key = "FuMVFXTU3fJHtKTHC9v480ZXmampcvt6J0vzYBji"
-        self._senatorBaseURL = "https://api.propublica.org/congress/v1/members/senate"
-        self._houseBaseURL = "https://api.propublica.org/congress/v1/members/house"
-        self._specificMemberURL = "https://api.propublica.org/congress/v1/members"
-        self._specificBillURL = "https://api.propublica.org/congress/v1"
-        self._input = Input()
+        self.input = Input()
+        self.api = ProPublica()
+
 
     def listSentatorByState(self, state):
 
-        url = self._senatorBaseURL + "/" +state+ "/current.json"
+        senatorBaseURL = "https://api.propublica.org/congress/v1/members/senate"
+        url = senatorBaseURL + "/" +state+ "/current.json"
         headers = {
-            'x-api-key': self._key
+            'x-api-key': self.api.key
         }
         response = requests.request("GET", url, headers=headers)
         if response.status_code != 200:
@@ -32,9 +28,10 @@ class ProPublica(object):
 
     def listHouseOfRepsByState(self, state):
 
-        url = self._houseBaseURL + "/" +state+ "/current.json"
+        houseBaseURL = "https://api.propublica.org/congress/v1/members/house"
+        url = houseBaseURL + "/" +state+ "/current.json"
         headers = {
-            'x-api-key': self._key
+            'x-api-key': self.api.key
         }
         response = requests.request("GET", url, headers=headers)
         if response.status_code != 200:
@@ -44,9 +41,10 @@ class ProPublica(object):
 
     def repDetails(self, member_id):
 
-        url = self._specificMemberURL + "/" +member_id+ "/votes.json"
+        specificMemberURL = "https://api.propublica.org/congress/v1/members"
+        url = specificMemberURL + "/" +member_id+ "/votes.json"
         headers = {
-            'x-api-key': self._key
+            'x-api-key': self.api.key
         }
         response = requests.request("GET", url, headers=headers)
         if response.status_code != 200:
@@ -54,37 +52,21 @@ class ProPublica(object):
         else:
             return response.json()
 
-    def billDetails(self, congress, bill_id):
-        """ Congress 105-115 """
-
-        url = self._specificBillURL + "/" + congress + "/bills/" + bill_id + ".json"
-        headers = {
-            'x-api-key': self._key
-        }
-        response = requests.request("GET", url, headers=headers)
-        if response.status_code != 200:
-            print('Something went wrong'.format(response.status_code))
-        else:
-            return response.json()
 
     def getListOfStateSenator(self):
-        state = self._input.setState()
+        state = self.input.setState()
         jsonOfStateSentator = self.listSentatorByState(state)
         return jsonOfStateSentator
 
     def getListOfStateHouseReps(self):
-        state = self._input.setState()
+        state = self.input.setState()
         jsonOfHouseReps = self.listHouseOfRepsByState(state)
         return jsonOfHouseReps
 
     def getRepDetails(self):
-        repID = self._input.setRepID()
+        repID = self.input.setRepID()
         jsonOfRepDetails = self.repDetails(repID)
         return jsonOfRepDetails
-
-    def getBillDetails(self):
-        jsonOfBillDetails = self.billDetails('115', 'hr2810')
-        return jsonOfBillDetails
 
     def parseSenator(self, senatorJsonData):
 
@@ -103,6 +85,7 @@ class ProPublica(object):
         return sentatorList
 
     def printSenator(self, senatorJson):
+
         print("Printing the Senator Class Attributes stored in senatorList: \n")
         for item in senatorJson:
             print("First Name  : " + item._firstName)
@@ -148,14 +131,17 @@ class ProPublica(object):
 
 
 if __name__ == "__main__":
-    api = ProPublica()
+    member = Members()
     # C001049
     #senator = api.getListOfStateSenator()
-    house = api.getListOfStateHouseReps()
+    #house = member.getListOfStateHouseReps()
     #parsedSenatorJson = api.parseSenator(senator)
     #api.printSenator(parsedSenatorJson)
-    parsedHouseJson = api.parseHouse(house)
-    api.printHouse(parsedHouseJson)
+    # parsedHouseJson = member.parseHouse(house)
+    # print(member.input.repID)
+    # print(member.input.chamber)
+    # print(member.input.state)
+    #member.printHouse(parsedHouseJson)
     #details = api.getRepDetails()
     #billDetails = api.getBillDetails()
 

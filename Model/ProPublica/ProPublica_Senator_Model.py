@@ -11,7 +11,3 @@ class Senator():
         self._twitterID = twitterID
 
 
-    # def __str__(self):
-    #     return "First Name  : {} \n" \
-    #            "Middle Name : {} \n" \
-    #            "Last Name   : {} ".format(self._firstName, self._middleName, self._lasName, self._facebook)
