@@ -134,14 +134,14 @@ if __name__ == "__main__":
     member = Members()
     # C001049
     #senator = api.getListOfStateSenator()
-    #house = member.getListOfStateHouseReps()
+    house = member.getListOfStateHouseReps()
     #parsedSenatorJson = api.parseSenator(senator)
     #api.printSenator(parsedSenatorJson)
-    # parsedHouseJson = member.parseHouse(house)
+    parsedHouseJson = member.parseHouse(house)
     # print(member.input.repID)
     # print(member.input.chamber)
     # print(member.input.state)
-    #member.printHouse(parsedHouseJson)
+    member.printHouse(parsedHouseJson)
     #details = api.getRepDetails()
     #billDetails = api.getBillDetails()
 
