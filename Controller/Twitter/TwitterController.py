@@ -35,7 +35,7 @@ def get_twitter_client():
 def get_rep_information():
     client = get_twitter_client()
     user = "RepCleaver"
-    data = Cursor(client.user_timeline, id=user).items(1)
+    data = Cursor(client.user_timeline, id=user).items(6)
     return data
 
 def parse_rep_entity():
@@ -53,13 +53,22 @@ def parse_rep_entity():
         status_id_reply = items._json['in_reply_to_status_id']
         status_id_str_reply = items._json['in_reply_to_status_id_str']
         user_id_reply = items._json['in_reply_to_user_id']
-        if items.quoted_status:
-            tweet_quote_id = "None"
-        else:
+        if hasattr(items, 'quoted_status'):
             tweet_quote_id = items.quoted_status['id']
-        tweet_quote_strID = items.quoted_status['id_str']
-        tweet_quote_text = items.quoted_status['text']
-        print("Tweet Information")
+            #print(tweet_quote_id)
+
+        else:
+            tweet_quote_id = "None" + "\n"
+        if hasattr(items, 'quoted_status'):
+            tweet_quote_strID = items.quoted_status['id_str']
+        else:
+            tweet_quote_strID = "None" + "\n"
+
+        if hasattr(items, 'quoted_status'):
+            tweet_quote_text = items.quoted_status['text']
+        else:
+            tweet_quote_text = "None" + "\n"
+        print("**********Tweet Information**********")
         print("This is the tweet ID: " + str(tweetID))
         print("This is the tweet text:  " + str(text))
         print("This is the tweet place: " + str(place))
@@ -70,13 +79,13 @@ def parse_rep_entity():
         print("This is the tweet reply user ID: " + str(user_id_reply))
         print("This is the tweet retweet count: " + str(retweetCount) + "\n")
 
-        print("This is the quoted Tweet")
+        print("**********This is the quoted Tweet**********")
         print("This is the quoted TweetID: " + str(tweet_quote_id))
         print("This is the quoted TweetStrID: " + str(tweet_quote_strID))
-        print("This is the quoted Tweet Text: " + str(tweet_quote_text + "\n"))
+        print("This is the quoted Tweet Text: " + str(tweet_quote_text))
 
         for tag in items.entities['user_mentions']:
-            print("User Mentions")
+            print("**********User Mentions**********")
             tweet_user_mention_screenName = tag['screen_name']
             tweet_user_mention_name = tag['name']
             tweet_user_mention_id = tag['id']
@@ -88,21 +97,38 @@ def parse_rep_entity():
 
         # If the tweet was a quote get quoted tweet information
         # "quoted_status": { "entities": { "hashtags": [{ "text":}]
-        for element in items.quoted_status['entities']['hashtags']:
-            hashtag = element['text']
+        if hasattr(items, 'quoted_status'):
+            for element in items.quoted_status['entities']['hashtags']:
+                if hasattr(element, 'text'):
+                    hashtag = element['text']
+                    print("This is the quoted Tweet hashtag: " + str(hashtag))
+                else:
+                    hashtag = "None"
+                    print("This is the quoted Tweet hashtag: " + str(hashtag))
+        else:
+            hashtag = "None"
             print("This is the quoted Tweet hashtag: " + str(hashtag))
-
         # Get the quoted tweet who mentioned users
         # ScreenName, name, id, tweetId
-        for item in items.quoted_status['entities']['user_mentions']:
-            tweet_quote_user_mention_screenName = item['screen_name']
-            tweet_quote_user_mention_name = item['name']
-            tweet_quote_user_mention_id = item['id']
-            tweet_quote_user_mention_id_str = item['id_str']
+        if hasattr(items, 'quoted_status'):
+            for item in items.quoted_status['entities']['user_mentions']:
+                tweet_quote_user_mention_screenName = item['screen_name']
+                tweet_quote_user_mention_name = item['name']
+                tweet_quote_user_mention_id = item['id']
+                tweet_quote_user_mention_id_str = item['id_str']
+                print("This is the quoted Tweet UserMention ScreenName: " + str(tweet_quote_user_mention_screenName))
+                print("This is the quoted Tweet UserMention Name: " + str(tweet_quote_user_mention_name))
+                print("This is the quoted Tweet UserMention id: " + str(tweet_quote_user_mention_id))
+                print("This is the quoted Tweet UserMention idStr: " + str(tweet_quote_user_mention_id_str))
+        else:
+            tweet_quote_user_mention_screenName = "None"
+            tweet_quote_user_mention_name = "None"
+            tweet_quote_user_mention_id = "None"
+            tweet_quote_user_mention_id_str = "None"
             print("This is the quoted Tweet UserMention ScreenName: " + str(tweet_quote_user_mention_screenName))
             print("This is the quoted Tweet UserMention Name: " + str(tweet_quote_user_mention_name))
             print("This is the quoted Tweet UserMention id: " + str(tweet_quote_user_mention_id))
-            print("This is the quoted Tweet UserMention idStr: " + str(tweet_quote_user_mention_id_str))
+            print("This is the quoted Tweet UserMention idStr: " + str(tweet_quote_user_mention_id_str) + "\n")
 
 
 
