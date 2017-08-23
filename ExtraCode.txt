@@ -40,3 +40,14 @@
     #     return "First Name  : {} \n" \
     #            "Middle Name : {} \n" \
     #            "Last Name   : {} ".format(self._firstName, self._middleName, self._lasName, self._facebook)
+
+            print("**********Tweet Information**********" + "TweetNum: " + str(num))
+        print("This is the tweet ID: " + str(tweet_ID))
+        print("This is the tweet text:  " + str(tweet_text))
+        print("This is the tweet place: " + str(tweet_place))
+        print("This is the tweet retweeted: " + str(tweet_retweet))
+        print("This is the tweet retweetCount: " + str(tweet_retweetCount))
+        print("This is the tweet reply Screen Name: " + "TweetNum: " + str(tweet_screen_name_reply))
+        print("This is the tweet reply ID: " + str(tweet_status_id_reply))
+        print("This is the tweet reply status ID: " + str(tweet_status_id_str_reply))
+        print("This is the tweet reply user ID: " + str(tweet_user_id_reply) + "\n")

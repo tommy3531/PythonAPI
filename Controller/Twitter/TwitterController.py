@@ -1,6 +1,7 @@
 from tweepy import API
 from tweepy import OAuthHandler
 from tweepy import Cursor
+from Model.Social.Twitter.Twitter_Tweet_Model import Tweet
 from pprint import pprint
 
 import json
@@ -36,29 +37,25 @@ def get_rep_information():
     return data
 
 def get_rep_tweet():
+    repTweetList = []
     parseJson = get_rep_information()
     print("This is parse_rep_information: ")
-    for num, items in enumerate(parseJson, start=1):
+    for items in parseJson:
         # print(json.dumps(items._json))
-        tweetID = items._json['id_str']
-        text = items._json['text']
-        place = items._json['place']
-        retweet = items._json['retweeted']
-        retweetCount = items._json['retweet_count']
-        screen_name_reply = items._json['in_reply_to_screen_name']
-        status_id_reply = items._json['in_reply_to_status_id']
-        status_id_str_reply = items._json['in_reply_to_status_id_str']
-        user_id_reply = items._json['in_reply_to_user_id']
-        print("**********Tweet Information**********" + "TweetNum: " + str(num))
-        print("This is the tweet ID: " + str(tweetID))
-        print("This is the tweet text:  " + str(text))
-        print("This is the tweet place: " + str(place))
-        print("This is the tweet retweeted: " + str(retweet))
-        print("This is the tweet reply Screen Name: " + "TweetNum: " + str(screen_name_reply))
-        print("This is the tweet reply ID: " + str(status_id_reply))
-        print("This is the tweet reply status ID: " + str(status_id_str_reply))
-        print("This is the tweet reply user ID: " + str(user_id_reply))
-        print("This is the tweet retweet count: " + str(retweetCount) + "\n")
+        tweet_ID = items._json['id_str']
+        tweet_text = items._json['text']
+        tweet_place = items._json['place']
+        tweet_retweet = items._json['retweeted']
+        tweet_retweetCount = items._json['retweet_count']
+        tweet_screen_name_reply = items._json['in_reply_to_screen_name']
+        tweet_status_id_reply = items._json['in_reply_to_status_id']
+        tweet_status_id_str_reply = items._json['in_reply_to_status_id_str']
+        tweet_user_id_reply = items._json['in_reply_to_user_id']
+
+        repTweetObj = Tweet(tweet_ID, tweet_text, tweet_place, tweet_retweet, tweet_retweetCount, tweet_screen_name_reply, tweet_status_id_reply, tweet_status_id_str_reply, tweet_user_id_reply)
+        repTweetList.append(repTweetObj)
+    return repTweetList
+
 
 def get_quoted_tweet():
     parseJson = get_rep_information()
@@ -145,9 +142,12 @@ def tweet_quote_user_mention():
             print("This is the quoted Tweet UserMention idStr: " + str(tweet_quote_user_mention_id_str) + "\n")
 
 if __name__ == '__main__':
-    tweet_quote_user_mention()
+    # tweet_quote_user_mention()
     #get_tweetQuote_hashtag()
-    #get_rep_tweet()
+    tweet_Model = get_rep_tweet()
+    for i in tweet_Model:
+        print(i.tweetID)
+
     # get_tweet_user_mention()
     # parse_rep_tweet()
     #parse_rep_information()
