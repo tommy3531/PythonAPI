@@ -10,9 +10,6 @@ def get_twitter_auth():
 
         Return: tweepy.OAuth Obj
     """
-
-
-
     consumer_key = "xIoIkf3n510nQummRrToTcMEW"
     consumer_secret = "tTKglNhypBJerQSRJsE1hmhWzxZrolw85NRObjbjb38HLvbiAH"
     access_token = "852662587934130176-scJ8ZEtjtyWpiiqJfAEG5DnyVH6BleU"
@@ -38,12 +35,11 @@ def get_rep_information():
     data = Cursor(client.user_timeline, id=user).items(6)
     return data
 
-def parse_rep_entity():
+def get_rep_tweet():
     parseJson = get_rep_information()
     print("This is parse_rep_information: ")
     for num, items in enumerate(parseJson, start=1):
         # print(json.dumps(items._json))
-
         tweetID = items._json['id_str']
         text = items._json['text']
         place = items._json['place']
@@ -53,21 +49,6 @@ def parse_rep_entity():
         status_id_reply = items._json['in_reply_to_status_id']
         status_id_str_reply = items._json['in_reply_to_status_id_str']
         user_id_reply = items._json['in_reply_to_user_id']
-        if hasattr(items, 'quoted_status'):
-            tweet_quote_id = items.quoted_status['id']
-            #print(tweet_quote_id)
-
-        else:
-            tweet_quote_id = "None" + "\n"
-        if hasattr(items, 'quoted_status'):
-            tweet_quote_strID = items.quoted_status['id_str']
-        else:
-            tweet_quote_strID = "None" + "\n"
-
-        if hasattr(items, 'quoted_status'):
-            tweet_quote_text = items.quoted_status['text']
-        else:
-            tweet_quote_text = "None" + "\n"
         print("**********Tweet Information**********" + "TweetNum: " + str(num))
         print("This is the tweet ID: " + str(tweetID))
         print("This is the tweet text:  " + str(text))
@@ -79,14 +60,33 @@ def parse_rep_entity():
         print("This is the tweet reply user ID: " + str(user_id_reply))
         print("This is the tweet retweet count: " + str(retweetCount) + "\n")
 
+def get_quoted_tweet():
+    parseJson = get_rep_information()
+    for num, items in enumerate(parseJson, start=1):
+        if hasattr(items, 'quoted_status'):
+            tweet_quote_id = items.quoted_status['id']
+            #print(tweet_quote_id)
+        else:
+            tweet_quote_id = "None" + "\n"
+        if hasattr(items, 'quoted_status'):
+            tweet_quote_strID = items.quoted_status['id_str']
+        else:
+            tweet_quote_strID = "None" + "\n"
+
+        if hasattr(items, 'quoted_status'):
+            tweet_quote_text = items.quoted_status['text']
+        else:
+            tweet_quote_text = "None" + "\n"
         print("**********This is the quoted Tweet**********" + "TweetNum: " + str(num))
         print("This is the quoted TweetID: " + str(tweet_quote_id))
         print("This is the quoted TweetStrID: " + str(tweet_quote_strID))
         print("This is the quoted Tweet Text: " + str(tweet_quote_text))
 
+def get_tweet_user_mention():
+    parseJson = get_rep_information()
+    for items in parseJson:
         for tag in (items.entities['user_mentions']):
-
-            print("**********User Mentions**********" + "TweetNum: " + str(num))
+            print("**********User Mentions**********" + "TweetNum: ")
             tweet_user_mention_screenName = tag['screen_name']
             tweet_user_mention_name = tag['name']
             tweet_user_mention_id = tag['id']
@@ -95,6 +95,10 @@ def parse_rep_entity():
             print("This is the tweet User Mention tweet name: " + str(tweet_user_mention_name))
             print("This is the tweet User Mention tweet id: " + str(tweet_user_mention_id))
             print("This is the tweet User Mention tweet strID: " + str(tweet_user_mention_idStr + "\n"))
+
+def get_tweetQuote_hashtag():
+    parseJson = get_rep_information()
+    for num, items in enumerate(parseJson, start=1):
 
         # If the tweet was a quote get quoted tweet information
         # "quoted_status": { "entities": { "hashtags": [{ "text":}]
@@ -112,6 +116,10 @@ def parse_rep_entity():
             hashtag = "None"
             print("**********This is the Tweet Quote HashTag**********" + "TweetNum: " + str(num))
             print("This is the quoted Tweet hashtag: " + str(hashtag) + "\n")
+
+def tweet_quote_user_mention():
+    parseJson = get_rep_information()
+    for num, items in enumerate(parseJson, start=1):
         # Get the quoted tweet who mentioned users
         # ScreenName, name, id, tweetId
         if hasattr(items, 'quoted_status'):
@@ -136,11 +144,11 @@ def parse_rep_entity():
             print("This is the quoted Tweet UserMention id: " + str(tweet_quote_user_mention_id))
             print("This is the quoted Tweet UserMention idStr: " + str(tweet_quote_user_mention_id_str) + "\n")
 
-
-
 if __name__ == '__main__':
-
-    parse_rep_entity()
+    tweet_quote_user_mention()
+    #get_tweetQuote_hashtag()
+    #get_rep_tweet()
+    # get_tweet_user_mention()
     # parse_rep_tweet()
     #parse_rep_information()
 
