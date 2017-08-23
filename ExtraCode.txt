@@ -51,3 +51,24 @@
         print("This is the tweet reply ID: " + str(tweet_status_id_reply))
         print("This is the tweet reply status ID: " + str(tweet_status_id_str_reply))
         print("This is the tweet reply user ID: " + str(tweet_user_id_reply) + "\n")
+
+        print("**********This is the quoted Tweet**********" + "TweetNum: " + str(num))
+        print("This is the quoted TweetID: " + str(tweet_quote_id))
+        print("This is the quoted TweetStrID: " + str(tweet_quote_strID))
+        print("This is the quoted Tweet Text: " + str(tweet_quote_text))
+
+        print("**********User Mentions**********" + "TweetNum: ")
+
+        print("**********This is the Tweet Quote HashTag**********" + "TweetNum: " + str(num) + "\n")
+        print("This is the quoted Tweet hashtag: " + str(hashtag) + "\n")
+                print("**********This is the Tweet Quote UserMention**********" + "TweetNum: " + str(num))
+                print("This is the quoted Tweet UserMention ScreenName: " + str(tweet_quote_user_mention_screenName))
+                print("This is the quoted Tweet UserMention Name: " + str(tweet_quote_user_mention_name))
+                print("This is the quoted Tweet UserMention id: " + str(tweet_quote_user_mention_id))
+                print("This is the quoted Tweet UserMention idStr: " + str(tweet_quote_user_mention_id_str))
+
+              print("**********This is the Tweet Quote UserMention**********" + "TweetNum: " + str(num))
+            print("This is the quoted Tweet UserMention ScreenName: " + str(tweet_quote_user_mention_screenName))
+            print("This is the quoted Tweet UserMention Name: " + str(tweet_quote_user_mention_name))
+            print("This is the quoted Tweet UserMention id: " + str(tweet_quote_user_mention_id))
+            print("This is the quoted Tweet UserMention idStr: " + str(tweet_quote_user_mention_id_str) + "\n")

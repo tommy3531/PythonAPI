@@ -1,7 +1,8 @@
 from tweepy import API
 from tweepy import OAuthHandler
 from tweepy import Cursor
-from Model.Social.Twitter.Twitter_Tweet_Model import Tweet
+from Model.Social.Twitter.Tweet_Model import Tweet, Tweet_UserMention, Tweet_Quoted, Tweet_Quoted_HashTag, Tweet_Quoted_UserMention
+
 from pprint import pprint
 
 import json
@@ -58,6 +59,7 @@ def get_rep_tweet():
 
 
 def get_quoted_tweet():
+    tweetQuotedList = []
     parseJson = get_rep_information()
     for num, items in enumerate(parseJson, start=1):
         if hasattr(items, 'quoted_status'):
@@ -74,28 +76,30 @@ def get_quoted_tweet():
             tweet_quote_text = items.quoted_status['text']
         else:
             tweet_quote_text = "None" + "\n"
-        print("**********This is the quoted Tweet**********" + "TweetNum: " + str(num))
-        print("This is the quoted TweetID: " + str(tweet_quote_id))
-        print("This is the quoted TweetStrID: " + str(tweet_quote_strID))
-        print("This is the quoted Tweet Text: " + str(tweet_quote_text))
+
+        tweetQuotedObj = Tweet_Quoted(tweet_quote_id, tweet_quote_strID, tweet_quote_text)
+        tweetQuotedList.append(tweetQuotedObj)
+    return tweetQuotedList
+
 
 def get_tweet_user_mention():
+    tweetUserMentionList = []
     parseJson = get_rep_information()
     for items in parseJson:
         for tag in (items.entities['user_mentions']):
-            print("**********User Mentions**********" + "TweetNum: ")
+
             tweet_user_mention_screenName = tag['screen_name']
             tweet_user_mention_name = tag['name']
             tweet_user_mention_id = tag['id']
             tweet_user_mention_idStr = tag['id_str']
-            print("This is the tweet User Mention tweet screen_name: " + str(tweet_user_mention_screenName))
-            print("This is the tweet User Mention tweet name: " + str(tweet_user_mention_name))
-            print("This is the tweet User Mention tweet id: " + str(tweet_user_mention_id))
-            print("This is the tweet User Mention tweet strID: " + str(tweet_user_mention_idStr + "\n"))
+            tweetUserMentionObject = Tweet_UserMention(tweet_user_mention_screenName, tweet_user_mention_name, tweet_user_mention_id, tweet_user_mention_idStr)
+            tweetUserMentionList.append(tweetUserMentionObject)
+    return tweetUserMentionList
 
 def get_tweetQuote_hashtag():
+    tweetQuotedHashTagList = []
     parseJson = get_rep_information()
-    for num, items in enumerate(parseJson, start=1):
+    for items in parseJson:
 
         # If the tweet was a quote get quoted tweet information
         # "quoted_status": { "entities": { "hashtags": [{ "text":}]
@@ -103,20 +107,26 @@ def get_tweetQuote_hashtag():
             for element in items.quoted_status['entities']['hashtags']:
                 if hasattr(element, 'text'):
                     hashtag = element['text']
-                    print("**********This is the Tweet Quote HashTag**********" + "TweetNum: " + str(num) + "\n")
-                    print("This is the quoted Tweet hashtag: " + str(hashtag) + "\n")
+                    tweetQuotedHashTagObject = Tweet_Quoted_HashTag(hashtag)
+                    tweetQuotedHashTagList.append(tweetQuotedHashTagObject)
+                    return tweetQuotedHashTagList
+
                 else:
                     hashtag = "None"
-                    print("**********This is the Tweet Quote HashTag**********" + "TweetNum: " + str(num) + "\n")
-                    print("This is the quoted Tweet hashtag: " + str(hashtag) + "\n")
+                    tweetQuotedHashTagObject = Tweet_Quoted_HashTag(hashtag)
+                    tweetQuotedHashTagList.append(tweetQuotedHashTagObject)
+                    return tweetQuotedHashTagList
         else:
             hashtag = "None"
-            print("**********This is the Tweet Quote HashTag**********" + "TweetNum: " + str(num))
-            print("This is the quoted Tweet hashtag: " + str(hashtag) + "\n")
+            tweetQuotedHashTagObject = Tweet_Quoted_HashTag(hashtag)
+            tweetQuotedHashTagList.append(tweetQuotedHashTagObject)
+            return tweetQuotedHashTagList
+    return tweetQuotedHashTagList
 
 def tweet_quote_user_mention():
+    tweetQuoteUserMentionList = []
     parseJson = get_rep_information()
-    for num, items in enumerate(parseJson, start=1):
+    for items in parseJson:
         # Get the quoted tweet who mentioned users
         # ScreenName, name, id, tweetId
         if hasattr(items, 'quoted_status'):
@@ -125,28 +135,38 @@ def tweet_quote_user_mention():
                 tweet_quote_user_mention_name = item['name']
                 tweet_quote_user_mention_id = item['id']
                 tweet_quote_user_mention_id_str = item['id_str']
-                print("**********This is the Tweet Quote UserMention**********" + "TweetNum: " + str(num))
-                print("This is the quoted Tweet UserMention ScreenName: " + str(tweet_quote_user_mention_screenName))
-                print("This is the quoted Tweet UserMention Name: " + str(tweet_quote_user_mention_name))
-                print("This is the quoted Tweet UserMention id: " + str(tweet_quote_user_mention_id))
-                print("This is the quoted Tweet UserMention idStr: " + str(tweet_quote_user_mention_id_str))
+                tweetQuoteUserMentionObject = Tweet_Quoted_UserMention(tweet_quote_user_mention_screenName,tweet_quote_user_mention_name, tweet_quote_user_mention_id,tweet_quote_user_mention_id_str)
+                tweetQuoteUserMentionList.append(tweetQuoteUserMentionObject)
+                return tweetQuoteUserMentionList
         else:
             tweet_quote_user_mention_screenName = "None"
             tweet_quote_user_mention_name = "None"
             tweet_quote_user_mention_id = "None"
             tweet_quote_user_mention_id_str = "None"
-            print("**********This is the Tweet Quote UserMention**********" + "TweetNum: " + str(num))
-            print("This is the quoted Tweet UserMention ScreenName: " + str(tweet_quote_user_mention_screenName))
-            print("This is the quoted Tweet UserMention Name: " + str(tweet_quote_user_mention_name))
-            print("This is the quoted Tweet UserMention id: " + str(tweet_quote_user_mention_id))
-            print("This is the quoted Tweet UserMention idStr: " + str(tweet_quote_user_mention_id_str) + "\n")
+            tweetQuoteUserMentionObject = Tweet_Quoted_UserMention(tweet_quote_user_mention_screenName,tweet_quote_user_mention_name, tweet_quote_user_mention_id,tweet_quote_user_mention_id_str)
+            tweetQuoteUserMentionList.append(tweetQuoteUserMentionObject)
+            return tweetQuoteUserMentionList
+    return tweetQuoteUserMentionList
+
 
 if __name__ == '__main__':
     # tweet_quote_user_mention()
     #get_tweetQuote_hashtag()
-    tweet_Model = get_rep_tweet()
-    for i in tweet_Model:
-        print(i.tweetID)
+    # tweet_Model = get_rep_tweet()
+    # for i in tweet_Model:
+    #     print(i.tweetID)
+
+    # tweet_user_mention = get_tweet_user_mention()
+    # for i in tweet_user_mention:
+    #     print(i.tweetUserMentionScreenName)
+
+    # tweet_Quote_HashTag = get_tweetQuote_hashtag()
+    # for i in tweet_Quote_HashTag:
+    #     print(i.tweetQuoteHashTag)
+
+    tweet_Quote_UserMention = tweet_quote_user_mention()
+    for i in tweet_Quote_UserMention:
+        print(i.tweetQuoteUserMentionScreenName)
 
     # get_tweet_user_mention()
     # parse_rep_tweet()
