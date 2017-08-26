@@ -1,9 +1,6 @@
 import requests
 
 from Controller.ProPublica.ProPublicaController import ProPublica
-from Controller.UserInput_Controller import Input
-from Model.ProPublica.ProPublica_House_Model import House
-from Model.ProPublica.ProPublica_Senator_Model import Senator
 
 
 class Members(object):
@@ -38,10 +35,10 @@ class Members(object):
         else:
             return response.json()
 
-    def repDetails(self, member_id):
+    def repDetailsJSON(self, member_id):
 
         specificMemberURL = "https://api.propublica.org/congress/v1/members"
-        url = specificMemberURL + "/" +member_id+ "/votes.json"
+        url = specificMemberURL + "/" +member_id+ ".json"
         headers = {
             'x-api-key': self.api.key
         }
@@ -67,21 +64,7 @@ class Members(object):
         jsonOfRepDetails = self.repDetails(repID)
         return jsonOfRepDetails
 
-    def parseSenator(self, senatorJsonData):
 
-        """ Create Senator Object and store senator obj in list """
-        sentatorList = []
-        for item in senatorJsonData['results']:
-            first_name = item.get("first_name", "No First Name")
-            middle_name = item.get("middle_name", "No Middle Name")
-            last_name = item.get("last_name", "No Last Name")
-            name = item.get("name", "No Name")
-            party = item.get("party", "No Party")
-            role = item.get("role", "No Role")
-            twitter_id = item.get("twitter_id", "No Twitter ID")
-            faceBook = item.get("facebook_account", "No Facebook Available")
-            sentatorList.append(Senator(first_name, middle_name, last_name, name, party, role, faceBook, twitter_id))
-        return sentatorList
 
     def printSenator(self, senatorJson):
 
@@ -97,33 +80,9 @@ class Members(object):
             print("TwitterID   : " + item._twitterID + "\n")
 
 
-    def parseHouse(self, houseJsonData):
 
-        """ Create House Object and store house obj in list """
-        houseList = []
-        for item in houseJsonData['results']:
-            first_name = item.get("first_name", "No First Name")
-            middle_name = item.get("middle_name", "No Middle Name")
-            last_name = item.get("last_name", "No Last Name")
-            name = item.get("name", "No Name")
-            party = item.get("party", "No Party")
-            role = item.get("role", "No Role")
-            twitter_id = item.get("twitter_id", "No Twitter ID")
-            faceBook = item.get("facebook_account", "No Facebook Available")
-            houseList.append(House(first_name, middle_name, last_name, name, party, role, faceBook, twitter_id))
-        return houseList
 
-    def printHouse(self, houseJson):
-        print("Printing the House Class Attributes stored in HouseList: \n")
-        for item in houseJson:
-            print("First Name  : " + item._firstName)
-            print("Middle Name : " + str(item._middleName))
-            print("Last Name   : " + item._lastName)
-            print("Name        : " + item._name)
-            print("Party       : " + item._party)
-            print("Role        : " + item._role)
-            print("Facebook    : " + str(item._facebook))
-            print("TwitterID   : " + str(item._twitterID) + "\n")
+
 
     def parseRepDetails(self):
         pass

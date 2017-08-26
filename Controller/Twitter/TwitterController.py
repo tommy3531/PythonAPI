@@ -1,7 +1,7 @@
 from tweepy import API
 from tweepy import OAuthHandler
 from tweepy import Cursor
-from Model.ProPublica.ProPublica_Senator_Model import Senator
+
 from Model.Social.Twitter.Tweet_Model import Tweet, Tweet_UserMention, Tweet_Quoted, Tweet_Quoted_HashTag, Tweet_Quoted_UserMention
 
 from pprint import pprint
