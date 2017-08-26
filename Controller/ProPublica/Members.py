@@ -9,11 +9,10 @@ from Model.ProPublica.ProPublica_Senator_Model import Senator
 class Members(object):
 
     def __init__(self):
-        self.input = Input()
         self.api = ProPublica()
 
 
-    def listSentatorByState(self, state):
+    def sentatorByStateJSON(self, state):
 
         senatorBaseURL = "https://api.propublica.org/congress/v1/members/senate"
         url = senatorBaseURL + "/" +state+ "/current.json"
@@ -26,7 +25,7 @@ class Members(object):
         else:
             return response.json()
 
-    def listHouseOfRepsByState(self, state):
+    def houseRepsByStateJSON(self, state):
 
         houseBaseURL = "https://api.propublica.org/congress/v1/members/house"
         url = houseBaseURL + "/" +state+ "/current.json"
@@ -53,15 +52,15 @@ class Members(object):
             return response.json()
 
 
-    def getListOfStateSenator(self):
-        state = self.input.setState()
-        jsonOfStateSentator = self.listSentatorByState(state)
-        return jsonOfStateSentator
+    # def getListOfStateSenator(self):
+    #     state = self.input.setState()
+    #     jsonOfStateSentator = self.listSentatorByState(state)
+    #     return jsonOfStateSentator
 
-    def getListOfStateHouseReps(self):
-        state = self.input.setState()
-        jsonOfHouseReps = self.listHouseOfRepsByState(state)
-        return jsonOfHouseReps
+    # def getListOfStateHouseReps(self):
+    #     state = self.input.setState()
+    #     jsonOfHouseReps = self.houseRepsByStateJSON(state)
+    #     return jsonOfHouseReps
 
     def getRepDetails(self):
         repID = self.input.setRepID()
@@ -115,7 +114,7 @@ class Members(object):
         return houseList
 
     def printHouse(self, houseJson):
-        print("Printing the House Class Attributes stored in senatorList: \n")
+        print("Printing the House Class Attributes stored in HouseList: \n")
         for item in houseJson:
             print("First Name  : " + item._firstName)
             print("Middle Name : " + str(item._middleName))
@@ -130,18 +129,18 @@ class Members(object):
         pass
 
 
-if __name__ == "__main__":
-    member = Members()
+# if __name__ == "__main__":
+    # member = Members()
     # C001049
     #senator = api.getListOfStateSenator()
-    house = member.getListOfStateHouseReps()
+    # house = member.getListOfStateHouseReps()
     #parsedSenatorJson = api.parseSenator(senator)
     #api.printSenator(parsedSenatorJson)
-    parsedHouseJson = member.parseHouse(house)
+    # parsedHouseJson = member.parseHouse(house)
     # print(member.input.repID)
     # print(member.input.chamber)
     # print(member.input.state)
-    member.printHouse(parsedHouseJson)
+    # member.printHouse(parsedHouseJson)
     #details = api.getRepDetails()
     #billDetails = api.getBillDetails()
 
