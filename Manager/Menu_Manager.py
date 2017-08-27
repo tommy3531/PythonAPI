@@ -16,12 +16,15 @@ class MenuManager():
 
     def checkSelectionRange(self, input):
         rangeSelection = self.menu.checkIfNumIsInRange(input)
-        print(rangeSelection)
+        return rangeSelection
+
+
 
 
 if __name__ == "__main__":
     i = MenuManager()
     selectionInput = i.displayMenu()
     isValid = i.checkSelectionIsVALID(selectionInput)
-    i.checkSelectionRange(isValid)
+    rangeValid = i.checkSelectionRange(isValid)
+    print(rangeValid)
 

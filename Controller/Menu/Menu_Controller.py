@@ -19,9 +19,8 @@ class MenuController():
             print("The input is not a valid number: " + numSelection)
             #self.displayMenuOptions()
 
-    """ THis is messed up"""
     def checkIfNumIsInRange(self, numSelection):
-        if numSelection in range(1,3):
+        if numSelection in range(0,4):
             number = numSelection
 
             return number
@@ -32,6 +31,5 @@ class MenuController():
     def rerun(self):
         selection = self.displayMenuOptions()
         isNumber = self.checkIfNum(selection)
-        validRange = self.checkIfNumIsInRange(isNumber)
-        return validRange
+        self.checkIfNumIsInRange(isNumber)
 
