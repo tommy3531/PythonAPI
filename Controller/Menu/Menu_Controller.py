@@ -7,8 +7,11 @@ class MenuController():
         3. Exit
         
         """)
-        answer = input("Please enter a selection: ")
-        return int(answer)
+        answer = int(input("Please enter a selection: "))
+        if (type(answer) == int):
+            return answer
+        else:
+            self.displayMenuOptions()
 
     def checkIfNum(self, numSelection):
         if type(numSelection) == int:
@@ -21,15 +24,10 @@ class MenuController():
 
     def checkIfNumIsInRange(self, numSelection):
         if numSelection in range(0,4):
-            number = numSelection
-
-            return number
+            return numSelection
         else:
             print("Number is not in range of 1,3: " + str(numSelection))
-            self.rerun()
+            return False
             # return numSelection
-    def rerun(self):
-        selection = self.displayMenuOptions()
-        isNumber = self.checkIfNum(selection)
-        self.checkIfNumIsInRange(isNumber)
+
 
