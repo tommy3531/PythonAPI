@@ -21,8 +21,11 @@ class ProPublicaManager(object):
         state = self.input.setState()
         jsonofHouseReps = member.houseRepsByStateJSON(state)
         parsedHouseJson = member.parseHouse(jsonofHouseReps)
+        member.printHouse(parsedHouseJson)
         """ Returns list of House objects"""
-        return parsedHouseJson
+        # for i in parsedHouseJson:
+        #     print(i.id)
+        #return parsedHouseJson
 
     """ 
     Get the state and Senator's for that state 
@@ -33,6 +36,7 @@ class ProPublicaManager(object):
         state = self.input.setState()
         jsonOfSenator = member.sentatorByStateJSON(state)
         parseSenatorJson = member.parseSenator(jsonOfSenator)
+        member.printSenator(parseSenatorJson)
         return parseSenatorJson
 
     """ 
@@ -60,11 +64,11 @@ class ProPublicaManager(object):
         self.printRepDetail(detailData)
 
 
-if __name__ == "__main__":
-    i = ProPublicaManager()
-    houseDataList = i.houseDataList()
-    for item in houseDataList:
-        print(item.id)
+# if __name__ == "__main__":
+#     i = ProPublicaManager()
+#     houseDataList = i.houseDataList()
+#     for item in houseDataList:
+#         print(item.id)
     # data = i.stateHouseRepsDataList()
     # i.displayStateHouseRepData(data)
 

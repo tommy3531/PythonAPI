@@ -1,4 +1,5 @@
 import requests
+import pprint
 from Controller.ProPublica.ProPublicaController import ProPublica
 from Model.Government.ProPublica.ProPublica_Model import House, Senator, RepDetail
 
@@ -57,6 +58,7 @@ class Members(object):
         """ Create House Object and store house obj in list """
         houseList = []
         for item in houseJsonData['results']:
+            #pprint.pprint(item)
             id = item.get("id", "No ID")
             first_name = item.get("first_name", "No First Name")
             middle_name = item.get("middle_name", "No Middle Name")

@@ -2,9 +2,10 @@ class MenuController():
 
     def displayMenuOptions(self):
         print("""
-        1. Search by State
-        2. Search by State within Chamber(State or House)
-        3. Exit
+        1. Search house members by state
+        2. Search senate members by state
+        3. Search for specific political leader by repID
+        4. Exit
         
         """)
         answer = int(input("Please enter a selection: "))
@@ -27,7 +28,7 @@ class MenuController():
             return numSelection
         else:
             print("Number is not in range of 1,3: " + str(numSelection))
-            return False
+            return numSelection
             # return numSelection
 
 
