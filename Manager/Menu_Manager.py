@@ -5,12 +5,17 @@ class MenuManager():
     def __init__(self):
         self.menu = MenuController()
 
-    def start(self):
-        selection = self.menu.displayMenuOptions()
+    def searchByStateAndChamber(self):
+        selection = self.menu.displayStateAndChamberOptions()
         isNumber = self.menu.checkIfNum(selection)
-        booleanValue = self.menu.checkIfNumIsInRange(isNumber)
-        return booleanValue
+        isRange = self.menu.checkIfNumIsInRange(isNumber)
+        return isRange
 
+    def searchByRepID(self):
+        selection = self.menu.displayRepOptions()
+        isNumber = self.menu.checkIfNum(selection)
+        isRange = self.menu.checkIfNumIsInRange(isNumber)
+        return isRange
 
 
 

@@ -1,10 +1,10 @@
 class MenuController():
 
-    def displayMenuOptions(self):
+    def displayStateAndChamberOptions(self):
         print("""
         1. Search house members by state
         2. Search senate members by state
-        3. Search for specific political leader by repID
+
         4. Exit
         
         """)
@@ -12,7 +12,18 @@ class MenuController():
         if (type(answer) == int):
             return answer
         else:
-            self.displayMenuOptions()
+            self.displayStateAndChamberOptions()
+
+    def displayRepOptions(self):
+        print(""" 
+        1. Search By RepID
+        """)
+
+        answer = int(input("Please enter a selection: "))
+        if (type(answer) == int):
+            return answer
+        else:
+            self.displayStateAndChamberOptions()
 
     def checkIfNum(self, numSelection):
         if type(numSelection) == int:

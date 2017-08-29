@@ -48,6 +48,7 @@ class ProPublicaManager(object):
         repID = self.input.setRepID()
         jsonOfRepDetail = member.repDetailsJSON(repID)
         parseRepDetailJson = member.parseRepDetail(jsonOfRepDetail)
+        member.printRepDetail(parseRepDetailJson)
         return parseRepDetailJson
 
     def displayStateHouseRepData(self, houseData):
