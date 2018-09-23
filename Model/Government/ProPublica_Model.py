@@ -1,4 +1,4 @@
-class Senator():
+class Senator:
 
     def __init__(self, firstName, middleName, lastName, name, party, role, facebook, twitterID):
         self._firstName = firstName
@@ -10,7 +10,8 @@ class Senator():
         self._facebook = facebook
         self._twitterID = twitterID
 
-class House():
+
+class House:
 
     def __init__(self, id, firstName, middleName, lastName, name, party, role, facebook, twitterID):
         self.id = id
@@ -23,7 +24,8 @@ class House():
         self.facebook = facebook
         self.twitterID = twitterID
 
-class RepDetail():
+
+class RepDetail:
     def __init__(self, crpID, cspanID, googleID, govtrackID, icpsrID):
         self.crpID = crpID
         self.cspandID = cspanID

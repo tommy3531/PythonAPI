@@ -16,6 +16,14 @@
       <sourceFolder url="file://$MODULE_DIR$/Model/Media" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Model/ProPublica" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/Model/Social" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Model/Government/ProPublica" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Controller/Court" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Controller/News" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Manager/Menu" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Manager/News" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Manager/ProPublica" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Manager/Twitter" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/Model/Social/Twitter" isTestSource="false" />
     </content>
     <orderEntry type="jdk" jdkName="Python 2.7" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

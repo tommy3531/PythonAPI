@@ -1,6 +1,6 @@
 class MenuController():
 
-    def displayStateAndChamberOptions(self):
+    def displayStateAndChamberOptions():
         print("""
         1. Search house members by state
         2. Search senate members by state
@@ -11,10 +11,9 @@ class MenuController():
         answer = int(input("Please enter a selection: "))
         if (type(answer) == int):
             return answer
-        else:
-            self.displayStateAndChamberOptions()
 
-    def displayRepOptions(self):
+
+    def displayRepOptions():
         print(""" 
         1. Search By RepID
         """)
@@ -22,8 +21,6 @@ class MenuController():
         answer = int(input("Please enter a selection: "))
         if (type(answer) == int):
             return answer
-        else:
-            self.displayStateAndChamberOptions()
 
     def checkIfNum(self, numSelection):
         if type(numSelection) == int:
@@ -33,6 +30,7 @@ class MenuController():
         else:
             print("The input is not a valid number: " + numSelection)
             #self.displayMenuOptions()
+
 
     def checkIfNumIsInRange(self, numSelection):
         if numSelection in range(0,4):

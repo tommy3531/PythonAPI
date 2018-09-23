@@ -23,6 +23,7 @@ def listSources():
 def listSourceByCategory():
     return requests.get(getSourcesByCategory('general'))
 
+
 def listArticleFromSource():
     return requests.get(getArticleFromSource('bbc-news'))
 

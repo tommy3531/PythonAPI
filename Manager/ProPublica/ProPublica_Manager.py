@@ -31,9 +31,7 @@ class ProPublicaManager(object):
     Get the state and Senator's for that state 
     return json of Senator in list
     """
-    def senatorDataList(self):
-        member = self.member
-        state = self.input.setState()
+    def senatorDataList():
         jsonOfSenator = member.sentatorByStateJSON(state)
         parseSenatorJson = member.parseSenator(jsonOfSenator)
         member.printSenator(parseSenatorJson)
